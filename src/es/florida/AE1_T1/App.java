@@ -35,6 +35,9 @@ public class App {
 			case 6:
 				inverso();
 				break;
+			case 7:
+				experiencia();
+				break;
 				
 		}
 	}
@@ -139,6 +142,27 @@ public class App {
 			resultado = resultado + datos.get(j);
 		}
 		System.out.println(" La suma total es: " + resultado);
+	}
+	
+	public static void experiencia() throws IOException {
+		System.out.println("EJERCICIO 7");
+		System.out.println("---------------");
+		Scanner teclado = new Scanner(System.in);
+		System.out.println("Indica los años de experiencia: ");
+		int anyos = teclado.nextInt();
+
+		if (anyos < 1) {
+			System.out.println("Desarrollador Junior L1 – 15000-18000");
+		} else if (anyos >= 1 && anyos <= 2) {
+			System.out.println("Desarrollador Junior L2 – 18000-22000");
+		} else if (anyos >= 3 && anyos <= 5) {
+			System.out.println("Desarrollador Senior L1 – 22000-28000");
+		} else if (anyos >= 6 && anyos <= 8) {
+			System.out.println("Desarrollador Senior L2 – 28000-36000");
+		} else if (anyos > 8) {
+			System.out.println("Analista / Arquitecto. Salario a convenir en base a rol");
+		}
+		teclado.close();
 	}
 
 }
