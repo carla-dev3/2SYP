@@ -38,6 +38,11 @@ public class App {
 			case 7:
 				experiencia();
 				break;
+			case 8:
+				esPrimo(num);
+				break;
+			default:
+				System.out.println("Introduce un número entre el 1 y 8 para elegir ejercicio");
 				
 		}
 	}
@@ -164,5 +169,30 @@ public class App {
 		}
 		teclado.close();
 	}
+	
+	public static void esPrimo(int num) {
+		System.out.println("EJERCICIO 8");
+		System.out.println("---------------");
+		Scanner teclado = new Scanner(System.in);
+		int inicio, fin;
 
-}
+		System.out.print("Indica el valor en que inicia el rango: ");
+		inicio = teclado.nextInt();
+		System.out.print("Indica el valor en que finaliza el rango: ");
+		fin = teclado.nextInt();
+		
+		int numero = 0;
+		 int cont = 0;
+         for (int i =inicio; i <= fin; i++) {
+             if (num % i == 0) {
+                 cont++;
+             }
+         }
+         if (cont == 2) {
+             System.out.println(+numero + " es un numero primo ");
+         } else {
+             System.out.println(+numero + " no es primo");
+         }
+     }
+}	
+
