@@ -26,6 +26,9 @@ public class App {
 			case 3:
 				suma(15);
 				break;
+			case 4:
+				factorial();
+				break;
 				
 		}
 	}
@@ -80,5 +83,16 @@ public class App {
 		return suma;
 	}
 	
+	public static void factorial() {
+		System.out.println("EJERCICIO 4");
+		System.out.println("---------------");
+		long factorial = 1;
+
+		for (int i = 2; i <= 15; i++) {
+			factorial *= i;
+		}
+
+		System.out.println("El factorial del número " + Integer.toString(15) + " es el: " + Long.toString(factorial));
+	}
 
 }
