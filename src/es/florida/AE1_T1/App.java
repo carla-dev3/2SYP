@@ -23,6 +23,9 @@ public class App {
 			case 2:
 				array();
 				break;
+			case 3:
+				suma(15);
+				break;
 				
 		}
 	}
@@ -63,5 +66,19 @@ public class App {
 			System.out.println(itr.next());
 		}
 	}
+	
+	private static int suma(int num) {
+		System.out.println("EJERCICIO 3");
+		System.out.println("---------------");
+
+		int suma = 0;
+		for (int m = 1; m <= num; m++) {
+			if (m % 2 == 0) {
+				suma += m;
+			}
+		}
+		return suma;
+	}
+	
 
 }
