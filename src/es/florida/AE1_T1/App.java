@@ -32,6 +32,9 @@ public class App {
 			case 5:
 				mayor();
 				break;
+			case 6:
+				inverso();
+				break;
 				
 		}
 	}
@@ -109,6 +112,33 @@ public class App {
 			}
 		}
 		System.out.println("El número mayor dentro del array es: " + mayor);
+	}
+	
+	public static void inverso() {
+		System.out.println("EJERCICIO 6");
+		System.out.println("---------------");
+		int i = 1, lugar, resultado = 0;
+		List<Integer> datos = new ArrayList<Integer>();
+
+		for (int j = 0; j < 5; j++) {
+			System.out.println("Número: " + i);
+			Scanner numeros = new Scanner(System.in);
+			int numero = numeros.nextInt();
+			datos.add(numero);
+			i++;
+		}
+
+		lugar = datos.size() - 1;
+
+		do {
+			System.out.print(datos.get(lugar));
+			lugar--;
+		} while (lugar != -1);
+
+		for (int j = 0; j < datos.size(); j++) {
+			resultado = resultado + datos.get(j);
+		}
+		System.out.println(" La suma total es: " + resultado);
 	}
 
 }
