@@ -20,11 +20,48 @@ public class App {
 			case 1:
 				sayHello();
 				break;
+			case 2:
+				array();
+				break;
 				
 		}
 	}
 	public static void sayHello() {
 		System.out.println("Hola Mundo");
+	}
+	
+	public static void array() {
+		String[] nombresClase = new String[6];
+		String nombre;
+		int i = 0;
+
+		System.out.println("EJERCICIO 2-A");
+		System.out.println("---------------");
+		System.out.println("Dime los 6 nombres: ");
+		do {
+			Scanner teclado = new Scanner(System.in);
+			nombre = teclado.nextLine();
+			nombresClase[i] = nombre;
+			i++;
+		} while (i < 6);
+
+		for (int x = 0; x < nombresClase.length; x++) {
+			System.out.println(nombresClase[x]);
+		}
+
+		System.out.println("EJERCICIO 2-B");
+		System.out.println("---------------");
+		System.out.println("Dime los 6 nombres: ");
+		ArrayList<String> nombreClase2 = new ArrayList<>();
+		for (int j = 0; j < 6; j++) {
+			Scanner teclado = new Scanner(System.in);
+			nombre = teclado.nextLine();
+			nombreClase2.add(nombre);
+		}
+		Iterator<String> itr = nombreClase2.iterator();
+		while (itr.hasNext()) {
+			System.out.println(itr.next());
+		}
 	}
 
 }
