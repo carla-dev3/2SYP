@@ -29,6 +29,9 @@ public class App {
 			case 4:
 				factorial();
 				break;
+			case 5:
+				mayor();
+				break;
 				
 		}
 	}
@@ -93,6 +96,19 @@ public class App {
 		}
 
 		System.out.println("El factorial del número " + Integer.toString(15) + " es el: " + Long.toString(factorial));
+	}
+	
+	public static void mayor() {
+		System.out.println("EJERCICIO 5");
+		System.out.println("---------------");
+		int[] numeros = new int[]{28, 50, 40, 200, 20, 44, 100, 153};
+		int mayor = numeros[0];
+		for (int x = 1; x < numeros.length; x++) {
+			if (numeros[x] > mayor) {
+				mayor = numeros[x];
+			}
+		}
+		System.out.println("El número mayor dentro del array es: " + mayor);
 	}
 
 }
