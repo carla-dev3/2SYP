@@ -39,7 +39,7 @@ public class App {
 			experiencia();
 			break;
 		case 8:
-			esPrimo(num);
+			esPrimo();
 			break;
 		default:
 			System.out.println("Introduce un número entre el 1 y 8 para elegir ejercicio");
@@ -47,10 +47,22 @@ public class App {
 		}
 	}
 
+	/**
+	 * Metodo: sayHello 
+	 * Descripción: método que devuelve Hola Mundo
+	 * 
+	 * @param no
+	 **/
 	public static void sayHello() {
 		System.out.println("Hola Mundo");
 	}
 
+	/**
+	 * Metodo: array 
+	 * Descripción: método que imprime los nombres introducidos de forma consecutiva
+	 * 
+	 * @param no
+	 **/
 	public static void array() {
 		String[] nombresClase = new String[6];
 		String nombre;
@@ -85,6 +97,12 @@ public class App {
 		}
 	}
 
+	/**
+	 * Metodo: suma 
+	 * Descripción: método que suma los números pares hasta llegar al que se establece por parámetro
+	 * 
+	 * @param num Este parámetro es el número que se fija para detener la suma
+	 **/
 	private static int suma(int num) {
 		System.out.println("EJERCICIO 3");
 		System.out.println("---------------");
@@ -98,6 +116,12 @@ public class App {
 		return suma;
 	}
 
+	/**
+	 * Metodo: factorial 
+	 * Descripción: método que devuelve el factorial del número 15
+	 * 
+	 * @param no
+	 **/
 	public static void factorial() {
 		System.out.println("EJERCICIO 4");
 		System.out.println("---------------");
@@ -110,6 +134,12 @@ public class App {
 		System.out.println("El factorial del número " + Integer.toString(15) + " es el: " + Long.toString(factorial));
 	}
 
+	/**
+	 * Metodo: mayor 
+	 * Descripción: método que devuelve el mayor número que hay en el array
+	 * 
+	 * @param no
+	 **/
 	public static void mayor() {
 		System.out.println("EJERCICIO 5");
 		System.out.println("---------------");
@@ -123,6 +153,12 @@ public class App {
 		System.out.println("El número mayor dentro del array es: " + mayor);
 	}
 
+	/**
+	 * Metodo: inverso 
+	 * Descripción: método que devuelve 5 números de manera inversa y la suma de ellos
+	 * 
+	 * @param no
+	 **/
 	public static void inverso() {
 		System.out.println("EJERCICIO 6");
 		System.out.println("---------------");
@@ -150,6 +186,12 @@ public class App {
 		System.out.println(" La suma total es: " + resultado);
 	}
 
+	/**
+	 * Metodo: experiencia 
+	 * Descripción: método que devuelve el puesto de trabajo y el salario en función de los años de experiencia
+	 * 
+	 * @param no
+	 **/
 	public static void experiencia() throws IOException {
 		System.out.println("EJERCICIO 7");
 		System.out.println("---------------");
@@ -171,7 +213,13 @@ public class App {
 		teclado.close();
 	}
 
-	public static void esPrimo(int num) throws InterruptedException {
+	/**
+	 * Metodo: esPrimo 
+	 * Descripción: método que devuelve un rango de números e indica si es primo o no es primo. También el tiempo total de ejecución
+	 * 
+	 * @param no
+	 **/
+	public static void esPrimo() throws InterruptedException {
 		long empieza = System.currentTimeMillis();
 		System.out.println("EJERCICIO 8");
 		System.out.println("---------------");
@@ -199,6 +247,12 @@ public class App {
 		System.out.println("El tiempo total de ejecución son: " + tiempo + " segundos");
 	}
 
+	/**
+	 * Método: primo 
+	 * Descripción: método que comprueba si el número es primo o no y este se le pasa al método esPrimo
+	 * 
+	 * @param numero Este parámetro hace referencia a los números del rango
+	 **/
 	public static boolean primo(int numero) {
 
 		if (numero == 0 || numero == 1 || numero == 4) {
@@ -210,6 +264,6 @@ public class App {
 				return false;
 		}
 		return true;
-	}
+	}	
 }
 
