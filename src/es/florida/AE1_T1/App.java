@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class App {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 		InputStreamReader input = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(input);
 		System.out.println("Número de ejercicio:");
@@ -17,39 +17,40 @@ public class App {
 		int num = Integer.parseInt(numString);
 
 		switch (num) {
-			case 1:
-				sayHello();
-				break;
-			case 2:
-				array();
-				break;
-			case 3:
-				suma(15);
-				break;
-			case 4:
-				factorial();
-				break;
-			case 5:
-				mayor();
-				break;
-			case 6:
-				inverso();
-				break;
-			case 7:
-				experiencia();
-				break;
-			case 8:
-				esPrimo(num);
-				break;
-			default:
-				System.out.println("Introduce un número entre el 1 y 8 para elegir ejercicio");
-				
+		case 1:
+			sayHello();
+			break;
+		case 2:
+			array();
+			break;
+		case 3:
+			suma(15);
+			break;
+		case 4:
+			factorial();
+			break;
+		case 5:
+			mayor();
+			break;
+		case 6:
+			inverso();
+			break;
+		case 7:
+			experiencia();
+			break;
+		case 8:
+			esPrimo(num);
+			break;
+		default:
+			System.out.println("Introduce un número entre el 1 y 8 para elegir ejercicio");
+
 		}
 	}
+
 	public static void sayHello() {
 		System.out.println("Hola Mundo");
 	}
-	
+
 	public static void array() {
 		String[] nombresClase = new String[6];
 		String nombre;
@@ -83,7 +84,7 @@ public class App {
 			System.out.println(itr.next());
 		}
 	}
-	
+
 	private static int suma(int num) {
 		System.out.println("EJERCICIO 3");
 		System.out.println("---------------");
@@ -96,7 +97,7 @@ public class App {
 		}
 		return suma;
 	}
-	
+
 	public static void factorial() {
 		System.out.println("EJERCICIO 4");
 		System.out.println("---------------");
@@ -108,11 +109,11 @@ public class App {
 
 		System.out.println("El factorial del número " + Integer.toString(15) + " es el: " + Long.toString(factorial));
 	}
-	
+
 	public static void mayor() {
 		System.out.println("EJERCICIO 5");
 		System.out.println("---------------");
-		int[] numeros = new int[]{28, 50, 40, 200, 20, 44, 100, 153};
+		int[] numeros = new int[] { 28, 50, 40, 200, 20, 44, 100, 153 };
 		int mayor = numeros[0];
 		for (int x = 1; x < numeros.length; x++) {
 			if (numeros[x] > mayor) {
@@ -121,7 +122,7 @@ public class App {
 		}
 		System.out.println("El número mayor dentro del array es: " + mayor);
 	}
-	
+
 	public static void inverso() {
 		System.out.println("EJERCICIO 6");
 		System.out.println("---------------");
@@ -148,7 +149,7 @@ public class App {
 		}
 		System.out.println(" La suma total es: " + resultado);
 	}
-	
+
 	public static void experiencia() throws IOException {
 		System.out.println("EJERCICIO 7");
 		System.out.println("---------------");
@@ -169,8 +170,9 @@ public class App {
 		}
 		teclado.close();
 	}
-	
-	public static void esPrimo(int num) {
+
+	public static void esPrimo(int num) throws InterruptedException {
+		long empieza = System.currentTimeMillis();
 		System.out.println("EJERCICIO 8");
 		System.out.println("---------------");
 		Scanner teclado = new Scanner(System.in);
@@ -180,19 +182,34 @@ public class App {
 		inicio = teclado.nextInt();
 		System.out.print("Indica el valor en que finaliza el rango: ");
 		fin = teclado.nextInt();
-		
+
 		int numero = 0;
-		 int cont = 0;
-         for (int i =inicio; i <= fin; i++) {
-             if (num % i == 0) {
-                 cont++;
-             }
-         }
-         if (cont == 2) {
-             System.out.println(+numero + " es un numero primo ");
-         } else {
-             System.out.println(+numero + " no es primo");
-         }
-     }
-}	
+		int cont = 0;
+		for (int i = inicio; i <= fin; i++) {
+			if (primo(i)) {
+				System.out.println("El numero " + i + " es primo");
+			} else {
+				System.out.println("El numero " + i + " no es primo");
+			}
+		}
+
+		long termina = System.currentTimeMillis();
+		double tiempo = (double) ((termina - empieza) / 1000);
+
+		System.out.println("El tiempo total de ejecución son: " + tiempo + " segundos");
+	}
+
+	public static boolean primo(int numero) {
+
+		if (numero == 0 || numero == 1 || numero == 4) {
+			return false;
+		}
+		for (int x = 2; x < numero / 2; x++) {
+
+			if (numero % x == 0)
+				return false;
+		}
+		return true;
+	}
+}
 
