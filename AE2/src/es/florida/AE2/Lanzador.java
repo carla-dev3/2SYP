@@ -62,5 +62,8 @@ public class Lanzador {
 	        } finally {
 	        	
 	        }
+	        long fin = System.nanoTime();
+	        double form = (double)(fin - inicio) * 1.0e-9;
+	        System.out.println("\n El tiempo total de ejecución es de " + form + " segundos");
 	 }
 }

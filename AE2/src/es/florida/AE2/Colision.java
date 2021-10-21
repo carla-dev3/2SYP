@@ -28,6 +28,10 @@ public class Colision {
         double resultado = 100 * Math.random() * Math.pow(((posicionNEO - posicionTierra) / (posicionNEO + posicionTierra)), 2);
         BigDecimal bigDecimal = new BigDecimal(resultado).setScale(2, RoundingMode.UP);
         
+        long fin = System.nanoTime();
+        double form = (double) (fin - inicio) * 1.0e-9;
+        System.out.println("\n El tiempo total de ejecución es de " + form + " segundos");
+        
         if (resultado > 10) {
             System.out.println("\nALERTA MUNDIAL! Alta probabilidad de colisión");
         } else {
@@ -38,7 +42,7 @@ public class Colision {
     }
 
 	public static void main(String[] args) {
-		 Colision colision = new Colision();
+		 	Colision colision = new Colision();
 	        double posicionTierra = Float.parseFloat(args[0]);
 	        double velocidadTierra = Float.parseFloat(args[1]);
 	        FileWriter fichero = null;
