@@ -10,7 +10,8 @@ public class Colision {
 
 	/**
 	 * Metodo: probabilidadColision
-	 * Descripcion: calcular la probabilidad de que el NEO colisione con la tierra y guardarla en ficheros independientes
+	 * Descripcion: calcular la probabilidad de que el NEO colisione con la tierra y guardarla en ficheros independientes. También avisa de
+	 * las alertas dependiendo la probabilidad de colision
 	 * 
 	 *  @param posicionNEO, velocidadNEO
 	 */
@@ -26,6 +27,12 @@ public class Colision {
 
         double resultado = 100 * Math.random() * Math.pow(((posicionNEO - posicionTierra) / (posicionNEO + posicionTierra)), 2);
         BigDecimal bigDecimal = new BigDecimal(resultado).setScale(2, RoundingMode.UP);
+        
+        if (resultado > 10) {
+            System.out.println("\nALERTA MUNDIAL! Alta probabilidad de colisión");
+        } else {
+            System.err.println("\nBaja probabilidad de colisión. No hay peligro");
+        }
 
         return bigDecimal.doubleValue();
     }
