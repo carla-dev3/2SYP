@@ -6,19 +6,38 @@ public class Minero implements Runnable {
     int tiempoExtraccion = 1000;
     Mina mina;
     
+    
     public Minero(Mina mina) {
         this.mina = mina;
         bolsa = 0;
     }
     
+    /** 
+	 * Metodo: setBolsa
+	 * Descripcion: establece el valor de la bolsa
+	 * 
+	 * @param bolsa
+	 */
     public void setBolsa(int bolsa) {
         this.bolsa = bolsa;
     }
 
+    /** 
+	 * Metodo: getBolsa
+	 * Descripcion: devuelve el valor de la bolsa
+	 * 
+	 * @param ninguno
+	 */
     public int getBolsa() {
         return bolsa;
     }
     
+    /** 
+	 * Metodo: extraerRecursos
+	 * Descripcion: extrae un recurso de la mina y los añade a la bolsa
+	 * 
+	 * @param nombre
+	 */
     private void extraerRecursos(String nombre) {
         
         if (mina.stock > 0) {

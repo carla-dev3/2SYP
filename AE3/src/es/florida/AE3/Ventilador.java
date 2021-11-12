@@ -9,6 +9,12 @@ public class Ventilador {
         this.mina = stockMina;
     }
     
+    /** 
+	 * Metodo: encenderVentilador
+	 * Descripcion: enciende el ventilador 
+	 * 
+	 * @param ninguno
+	 */
     public void encenderVentilador() throws InterruptedException {
         while (true) {
             if (0<mina.getStock()){
@@ -28,6 +34,12 @@ public class Ventilador {
         }
     }
     
+    /** 
+	 * Metodo: apagarVentilador
+	 * Descripcion: apaga el ventilador
+	 * 
+	 * @param ninguno
+	 */
     public void apagarVentilador() throws InterruptedException {
         while (true) {
             if (0<mina.getStock()) {
