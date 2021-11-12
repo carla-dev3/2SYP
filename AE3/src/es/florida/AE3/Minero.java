@@ -31,6 +31,7 @@ public class Minero implements Runnable {
             System.out.println("No quedan suficientes recursos");
         }
         System.out.println("-------------------------------------------------");
+    }
 
 	@Override
 	public void run() {
