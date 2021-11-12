@@ -34,7 +34,7 @@ public class Minero implements Runnable {
     }
 
 	@Override
-	public void run() {
+	public synchronized void run() {
 		  try {
 	            Thread.sleep(tiempoExtraccion);
 	            String nombre = Thread.currentThread().getName();
@@ -43,7 +43,4 @@ public class Minero implements Runnable {
 	            e.printStackTrace();
 	        }
 	}
-    
-    
-
 }
