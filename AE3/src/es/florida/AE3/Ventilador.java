@@ -20,7 +20,7 @@ public class Ventilador {
             if (0<mina.getStock()){
                 synchronized (this) {
                     while (numero == 1) {
-                        Thread.sleep(3000);
+                        Thread.sleep(5000);
                         System.out.println("---------------------------");
                         System.out.println("Ventilador encendido");
                         System.out.println("---------------------------");
@@ -46,7 +46,7 @@ public class Ventilador {
                 synchronized (this) {
                     while (numero == 2) {
 
-                        Thread.sleep(2000);
+                        Thread.sleep(5000);
                         System.out.println("---------------------------");
                         System.out.println("Ventilador apagado");
                         System.out.println("---------------------------");
