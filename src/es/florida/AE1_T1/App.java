@@ -12,7 +12,7 @@ public class App {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		InputStreamReader input = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(input);
-		System.out.println("Número de ejercicio:");
+		System.out.println("Nï¿½mero de ejercicio:");
 		String numString = br.readLine();
 		int num = Integer.parseInt(numString);
 
@@ -42,14 +42,14 @@ public class App {
 			esPrimo();
 			break;
 		default:
-			System.out.println("Introduce un número entre el 1 y 8 para elegir ejercicio");
+			System.out.println("Introduce un nï¿½mero entre el 1 y 8 para elegir ejercicio");
 
 		}
 	}
 
 	/**
 	 * Metodo: sayHello 
-	 * Descripción: método que devuelve Hola Mundo
+	 * Descripciï¿½n: mï¿½todo que devuelve Hola Mundo
 	 * 
 	 * @param no
 	 **/
@@ -59,7 +59,7 @@ public class App {
 
 	/**
 	 * Metodo: array 
-	 * Descripción: método que imprime los nombres introducidos de forma consecutiva
+	 * Descripciï¿½n: mï¿½todo que imprime los nombres introducidos de forma consecutiva
 	 * 
 	 * @param no
 	 **/
@@ -99,9 +99,9 @@ public class App {
 
 	/**
 	 * Metodo: suma 
-	 * Descripción: método que suma los números pares hasta llegar al que se establece por parámetro
+	 * Descripciï¿½n: mï¿½todo que suma los nï¿½meros pares hasta llegar al que se establece por parï¿½metro
 	 * 
-	 * @param num Este parámetro es el número que se fija para detener la suma
+	 * @param num Este parï¿½metro es el nï¿½mero que se fija para detener la suma
 	 **/
 	private static int suma(int num) {
 		System.out.println("EJERCICIO 3");
@@ -118,7 +118,7 @@ public class App {
 
 	/**
 	 * Metodo: factorial 
-	 * Descripción: método que devuelve el factorial del número 15
+	 * Descripciï¿½n: mï¿½todo que devuelve el factorial del nï¿½mero 15
 	 * 
 	 * @param no
 	 **/
@@ -131,16 +131,17 @@ public class App {
 			factorial *= i;
 		}
 
-		System.out.println("El factorial del número " + Integer.toString(15) + " es el: " + Long.toString(factorial));
+		System.out.println("El factorial del nï¿½mero " + Integer.toString(15) + " es el: " + Long.toString(factorial));
 	}
 
 	/**
 	 * Metodo: mayor 
-	 * Descripción: método que devuelve el mayor número que hay en el array
+	 * Descripciï¿½n: mï¿½todo que devuelve el mayor nï¿½mero que hay en el array
 	 * 
 	 * @param no
 	 **/
-	public static void mayor() {
+	public static void mayor()
+	{
 		System.out.println("EJERCICIO 5");
 		System.out.println("---------------");
 		int[] numeros = new int[] { 28, 50, 40, 200, 20, 44, 100, 153 };
@@ -150,12 +151,12 @@ public class App {
 				mayor = numeros[x];
 			}
 		}
-		System.out.println("El número mayor dentro del array es: " + mayor);
+		System.out.println("El nï¿½mero mayor dentro del array es: " + mayor);
 	}
 
 	/**
 	 * Metodo: inverso 
-	 * Descripción: método que devuelve 5 números de manera inversa y la suma de ellos
+	 * Descripciï¿½n: mï¿½todo que devuelve 5 nï¿½meros de manera inversa y la suma de ellos
 	 * 
 	 * @param no
 	 **/
@@ -166,7 +167,7 @@ public class App {
 		List<Integer> datos = new ArrayList<Integer>();
 
 		for (int j = 0; j < 5; j++) {
-			System.out.println("Número: " + i);
+			System.out.println("Nï¿½mero: " + i);
 			Scanner numeros = new Scanner(System.in);
 			int numero = numeros.nextInt();
 			datos.add(numero);
@@ -188,7 +189,7 @@ public class App {
 
 	/**
 	 * Metodo: experiencia 
-	 * Descripción: método que devuelve el puesto de trabajo y el salario en función de los años de experiencia
+	 * Descripciï¿½n: mï¿½todo que devuelve el puesto de trabajo y el salario en funciï¿½n de los aï¿½os de experiencia
 	 * 
 	 * @param no
 	 **/
@@ -196,17 +197,17 @@ public class App {
 		System.out.println("EJERCICIO 7");
 		System.out.println("---------------");
 		Scanner teclado = new Scanner(System.in);
-		System.out.println("Indica los años de experiencia: ");
+		System.out.println("Indica los aï¿½os de experiencia: ");
 		int anyos = teclado.nextInt();
 
 		if (anyos < 1) {
-			System.out.println("Desarrollador Junior L1 – 15000-18000");
+			System.out.println("Desarrollador Junior L1 ï¿½ 15000-18000");
 		} else if (anyos >= 1 && anyos <= 2) {
-			System.out.println("Desarrollador Junior L2 – 18000-22000");
+			System.out.println("Desarrollador Junior L2 ï¿½ 18000-22000");
 		} else if (anyos >= 3 && anyos <= 5) {
-			System.out.println("Desarrollador Senior L1 – 22000-28000");
+			System.out.println("Desarrollador Senior L1 ï¿½ 22000-28000");
 		} else if (anyos >= 6 && anyos <= 8) {
-			System.out.println("Desarrollador Senior L2 – 28000-36000");
+			System.out.println("Desarrollador Senior L2 ï¿½ 28000-36000");
 		} else if (anyos > 8) {
 			System.out.println("Analista / Arquitecto. Salario a convenir en base a rol");
 		}
@@ -215,7 +216,7 @@ public class App {
 
 	/**
 	 * Metodo: esPrimo 
-	 * Descripción: método que devuelve un rango de números e indica si es primo o no es primo. También el tiempo total de ejecución
+	 * Descripciï¿½n: mï¿½todo que devuelve un rango de nï¿½meros e indica si es primo o no es primo. Tambiï¿½n el tiempo total de ejecuciï¿½n
 	 * 
 	 * @param no
 	 **/
@@ -244,14 +245,14 @@ public class App {
 		long termina = System.currentTimeMillis();
 		double tiempo = (double) ((termina - empieza) / 1000);
 
-		System.out.println("El tiempo total de ejecución son: " + tiempo + " segundos");
+		System.out.println("El tiempo total de ejecuciï¿½n son: " + tiempo + " segundos");
 	}
 
 	/**
-	 * Método: primo 
-	 * Descripción: método que comprueba si el número es primo o no y este se le pasa al método esPrimo
+	 * Mï¿½todo: primo 
+	 * Descripciï¿½n: mï¿½todo que comprueba si el nï¿½mero es primo o no y este se le pasa al mï¿½todo esPrimo
 	 * 
-	 * @param numero Este parámetro hace referencia a los números del rango
+	 * @param numero Este parï¿½metro hace referencia a los nï¿½meros del rango
 	 **/
 	public static boolean primo(int numero) {
 
