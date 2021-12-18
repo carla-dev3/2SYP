@@ -27,11 +27,25 @@ public class Servidor implements Runnable {
 	@Override
 	public void run() {
 		try {
-			ObjectOutputStream outObjeto = new ObjectOutputStream(socket.getOutputStream());
-			
-		} catch(IOException e) {
+			InputStream is = socket.getInputStream();
+			InputStreamReader isr = new InputStreamReader(is);
+			bfr = new BufferedReader(isr);
+			OutputStream os = socket.getOutputStream();
+			pw = new PrintWriter(os);
+			String linea = bfr.readLine();
+			System.err.println("SERVIDOR >>> Lee datos para la operacion");
+			String contrasenya = bfr.readLine();
+			System.err.println("SERVIDOR >>> Realiza la operacion");
+			//Integer result = calcular(linea, num1, num2);
+			System.err.println("SERVIDOR >>> Devuelve resultado");
+			//pw.write(result.toString() + "\n");
+			pw.flush();
+			System.err.println("SERVIDOR >>> Espera nueva peticion");
+			} catch (IOException e) {
 			e.printStackTrace();
-			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Error");
-		}
+			System.err.println("SERVIDOR >>> Error.");
+			}
 	}
 }
+
+

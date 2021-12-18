@@ -10,8 +10,9 @@ public class ServidorHilos {
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws IOException {
 		
-		ServerSocket socketEscucha;
-		try {
+		System.err.println("SERVIDOR >>> Arranca el servidor, espera peticion");
+		ServerSocket socketEscucha = null;
+		try {		
 			socketEscucha = new ServerSocket(1234);
 		} catch (IOException e) {
 			System.err.println("SERVIDOR >> Error");
@@ -27,5 +28,5 @@ public class ServidorHilos {
 			hilo.start();
 		}
 	}
-
 }
+
