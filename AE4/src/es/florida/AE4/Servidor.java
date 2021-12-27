@@ -10,6 +10,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class Servidor implements Runnable {
 		this.socket = socket;
 	}
 	
+	
 	@Override
 	public void run() {
 		try {
@@ -32,20 +35,19 @@ public class Servidor implements Runnable {
 			bfr = new BufferedReader(isr);
 			OutputStream os = socket.getOutputStream();
 			pw = new PrintWriter(os);
-			String linea = bfr.readLine();
-			System.err.println("SERVIDOR >>> Lee datos para la operacion");
+			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Envío al cliente: ");
+			String linea = bfr.readLine();		
 			String contrasenya = bfr.readLine();
-			System.err.println("SERVIDOR >>> Realiza la operacion");
-			//Integer result = calcular(linea, num1, num2);
-			System.err.println("SERVIDOR >>> Devuelve resultado");
-			//pw.write(result.toString() + "\n");
+			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Realiza la operación");
+			//Integer resultado = calcular(linea, num1, num2);
+			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Devuelve el resultado");
+			//pw.write(resultado.toString() + "\n");
 			pw.flush();
-			System.err.println("SERVIDOR >>> Espera nueva peticion");
-			} catch (IOException e) {
+			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Espera nueva petición");
+		} catch(IOException e) {
 			e.printStackTrace();
-			System.err.println("SERVIDOR >>> Error.");
-			}
-	}
+			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Error");
+		}
+	} 
 }
-
 

@@ -22,7 +22,7 @@ public class ServidorHilos {
 		while (true) {
 			Socket conexion = socketEscucha.accept();
 			
-			System.err.println("SERVIDOR >> Conexion recibida >>> Lanzamos el hilo");
+			System.err.println("SERVIDOR >> Conexion recibida >>> Lanzamos el hilo clase Servidor");
 			Servidor s = new Servidor(conexion);
 			Thread hilo = new Thread(s);
 			hilo.start();

@@ -29,13 +29,13 @@ public class Cliente {
 		/* En el cliente primero recibimos los datos, al contrario que el servidor */
 		ObjectInputStream inObjeto = new ObjectInputStream(cliente.getInputStream());
 		EncriptarContrasenya e = (EncriptarContrasenya) inObjeto.readObject();
-		System.out.println("CLIENTE >> Recibo del servidor: " + e.getContrasenyaTexto());
+		System.out.println("CLIENTE >> Recibo del servidor: " + e.getContrasenyaTexto() + " - " + e.getContrasenyaEncriptada());
 		System.out.println("CLIENTE >> Actualizar información del objeto... ");
 		System.out.println("Introducir contraseña: ");
 		String contrasenya = teclado.nextLine();
 		e.setContrasenyaTexto(contrasenya);
 		Thread.sleep(2000);
-		System.out.println("CLIENTE >> Envio al servidor: " + e.getContrasenyaTexto());
+		System.out.println("CLIENTE >> Envio al servidor: " + e.getContrasenyaTexto() + " - " + e.getContrasenyaEncriptada());
 		/* Le enviamos al cliente los datos*/
 		ObjectOutputStream outObjeto = new ObjectOutputStream(cliente.getOutputStream());
 		outObjeto.writeObject(e);
