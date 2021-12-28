@@ -26,14 +26,14 @@ public class Servidor implements Runnable {
 		this.socket = socket;
 	}
 	
-	public static String encriptacion(String contraPlana) {
+	public static String encriptacion(String contrasenyaPlana) {
 		
-		int max = contraPlana.length();
+		int max = contrasenyaPlana.length();
 		String contrasenyaEncriptada = " ";
 		
 		for(int i = 0; i < max; i++) {
 			List<String> listaContrasenya = new ArrayList<String>();
-			char caracter = contraPlana.charAt(i);
+			char caracter = contrasenyaPlana.charAt(i);
 			int numero = (int) caracter;
 			int suma = numero + 1;
 			char nuevoCaracter = ((char) suma);
@@ -62,11 +62,14 @@ public class Servidor implements Runnable {
 			String contrasenyaPlana = pMod.getContrasenyaTexto();
 			
 			System.err.println("SERVIDOR >> Realiza la encriptación ");
-			String resultado = encriptacion(contrasenyaPlana);
+			String nuevaContrasenya = encriptacion(contrasenyaPlana);
+			pMod.setContrasenyaTexto(nuevaContrasenya);
 			
-			System.err.println("SERVIDOR >> Devuelve resultado ");
+			System.err.println("SERVIDOR >> Devuelve el resultado");
 			OutputStream os = socket.getOutputStream();
-			
+			PrintWriter pw = new PrintWriter(os);
+			pw.write(nuevaContrasenya + "\n");
+			pw.flush();
 			
 			/*InputStream is = socket.getInputStream();
 			InputStreamReader isr = new InputStreamReader(is);

@@ -53,7 +53,7 @@ public class Cliente {
 		ObjectInputStream inObjeto = new ObjectInputStream(socket.getInputStream());
 		EncriptarContrasenya c = (EncriptarContrasenya) inObjeto.readObject();
 		
-		System.out.println("Dime la contraseña: ");
+		System.out.println("Introduce ontraseña: ");
 		Scanner variable = new Scanner(System.in);
 		String contrasenya = variable.nextLine();
 		
@@ -69,8 +69,6 @@ public class Cliente {
 		
 		String resultado = bfr.readLine();
 		System.out.println("CLIENTE >> Recibe resultado: " + resultado);
-
-		
 		socket.close();
 		
 		
