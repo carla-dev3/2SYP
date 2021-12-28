@@ -26,28 +26,67 @@ public class Servidor implements Runnable {
 		this.socket = socket;
 	}
 	
-	
+	public static String encriptacion(String contraPlana) {
+		
+		int max = contraPlana.length();
+		String contrasenyaEncriptada = " ";
+		
+		for(int i = 0; i < max; i++) {
+			List<String> listaContrasenya = new ArrayList<String>();
+			char caracter = contraPlana.charAt(i);
+			int numero = (int) caracter;
+			int suma = numero + 1;
+			char nuevoCaracter = ((char) suma);
+			
+			if (Character.isWhitespace(nuevoCaracter)) {
+				listaContrasenya.add("*");
+			} else {
+				listaContrasenya.add(Character.toString(nuevoCaracter));
+			}
+		}
+		return contrasenyaEncriptada;
+	}
+
 	@Override
 	public void run() {
 		try {
-			InputStream is = socket.getInputStream();
+			
+			ObjectOutputStream outObjeto = new ObjectOutputStream(socket.getOutputStream());
+			EncriptarContrasenya c = new EncriptarContrasenya(" ", " ");
+			outObjeto.writeObject(c);
+			
+			System.err.println("SERVIDOR >> Conexión recibida!! ");
+			
+			ObjectInputStream inObjeto = new ObjectInputStream(socket.getInputStream());
+			EncriptarContrasenya pMod = (EncriptarContrasenya) inObjeto.readObject();
+			String contrasenyaPlana = pMod.getContrasenyaTexto();
+			
+			System.err.println("SERVIDOR >> Realiza la encriptación ");
+			String resultado = encriptacion(contrasenyaPlana);
+			
+			System.err.println("SERVIDOR >> Devuelve resultado ");
+			OutputStream os = socket.getOutputStream();
+			
+			
+			/*InputStream is = socket.getInputStream();
 			InputStreamReader isr = new InputStreamReader(is);
 			bfr = new BufferedReader(isr);
 			OutputStream os = socket.getOutputStream();
 			pw = new PrintWriter(os);
 			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Envío al cliente: ");
-			String linea = bfr.readLine();		
 			String contrasenya = bfr.readLine();
 			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Realiza la operación");
 			//Integer resultado = calcular(linea, num1, num2);
 			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Devuelve el resultado");
 			//pw.write(resultado.toString() + "\n");
 			pw.flush();
-			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Espera nueva petición");
+			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Espera nueva petición"); */
 		} catch(IOException e) {
 			e.printStackTrace();
 			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Error");
-		}
-	} 
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	}
 }
-
