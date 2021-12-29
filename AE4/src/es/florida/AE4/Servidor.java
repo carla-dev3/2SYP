@@ -29,10 +29,10 @@ public class Servidor implements Runnable {
 	public static String encriptacion(String contrasenyaPlana) {
 		
 		int max = contrasenyaPlana.length();
-		String contrasenyaEncriptada = " ";
-		
+		String contrasenya_encript = " ";
+		List<String> listaContrasenya = new ArrayList<String>();
 		for(int i = 0; i < max; i++) {
-			List<String> listaContrasenya = new ArrayList<String>();
+			
 			char caracter = contrasenyaPlana.charAt(i);
 			int numero = (int) caracter;
 			int suma = numero + 1;
@@ -44,15 +44,19 @@ public class Servidor implements Runnable {
 				listaContrasenya.add(Character.toString(nuevoCaracter));
 			}
 		}
-		return contrasenyaEncriptada;
+		for(String s : listaContrasenya)
+        {
+            contrasenya_encript=contrasenya_encript + s;
+        }
+		return contrasenya_encript;
 	}
 
 	@Override
 	public void run() {
+	
 		try {
-			
 			ObjectOutputStream outObjeto = new ObjectOutputStream(socket.getOutputStream());
-			EncriptarContrasenya c = new EncriptarContrasenya(" ", " ");
+			EncriptarContrasenya c = new EncriptarContrasenya();
 			outObjeto.writeObject(c);
 			
 			System.err.println("SERVIDOR >> Conexión recibida!! ");
@@ -63,33 +67,18 @@ public class Servidor implements Runnable {
 			
 			System.err.println("SERVIDOR >> Realiza la encriptación ");
 			String nuevaContrasenya = encriptacion(contrasenyaPlana);
-			pMod.setContrasenyaTexto(nuevaContrasenya);
+			pMod.setContrasenyaEncriptada(nuevaContrasenya);
 			
+			System.out.println(nuevaContrasenya);
 			System.err.println("SERVIDOR >> Devuelve el resultado");
 			OutputStream os = socket.getOutputStream();
-			PrintWriter pw = new PrintWriter(os);
+			pw = new PrintWriter(os);
 			pw.write(nuevaContrasenya + "\n");
 			pw.flush();
 			
-			/*InputStream is = socket.getInputStream();
-			InputStreamReader isr = new InputStreamReader(is);
-			bfr = new BufferedReader(isr);
-			OutputStream os = socket.getOutputStream();
-			pw = new PrintWriter(os);
-			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Envío al cliente: ");
-			String contrasenya = bfr.readLine();
-			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Realiza la operación");
-			//Integer resultado = calcular(linea, num1, num2);
-			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Devuelve el resultado");
-			//pw.write(resultado.toString() + "\n");
-			pw.flush();
-			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Espera nueva petición"); */
-		} catch(IOException e) {
-			e.printStackTrace();
-			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Error");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-	}
+	} catch(IOException | ClassNotFoundException e) {
+		e.printStackTrace();
+		System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Error");
+		}
+	} 
 }
