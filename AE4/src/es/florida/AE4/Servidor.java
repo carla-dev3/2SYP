@@ -55,30 +55,33 @@ public class Servidor implements Runnable {
 	public void run() {
 	
 		try {
+
 			ObjectOutputStream outObjeto = new ObjectOutputStream(socket.getOutputStream());
 			EncriptarContrasenya c = new EncriptarContrasenya();
 			outObjeto.writeObject(c);
-			
-			System.err.println("SERVIDOR >> Conexión recibida!! ");
 			
 			ObjectInputStream inObjeto = new ObjectInputStream(socket.getInputStream());
 			EncriptarContrasenya pMod = (EncriptarContrasenya) inObjeto.readObject();
 			String contrasenyaPlana = pMod.getContrasenyaTexto();
 			
-			System.err.println("SERVIDOR >> Realiza la encriptación ");
+			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + ">> Contraseña del cliente: " + contrasenyaPlana);
+			Thread.sleep(2000);
+			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + ">> Realiza la encriptación ");
 			String nuevaContrasenya = encriptacion(contrasenyaPlana);
 			pMod.setContrasenyaEncriptada(nuevaContrasenya);
 			
-			System.out.println(nuevaContrasenya);
-			System.err.println("SERVIDOR >> Devuelve el resultado");
+			Thread.sleep(2000);
+			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + ">> Devuelve el resultado");
 			OutputStream os = socket.getOutputStream();
 			pw = new PrintWriter(os);
 			pw.write(nuevaContrasenya + "\n");
 			pw.flush();
-			
-	} catch(IOException | ClassNotFoundException e) {
-		e.printStackTrace();
-		System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Error");
+			Thread.sleep(2000);
+			System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + ">>> Espera nueva peticion");
+			System.out.println("SERVIDOR Hilo" + Thread.currentThread().getName() + ">> Escoge una opcion de encriptado. 1. ASCII o 2. MD5");
+			} catch(IOException | ClassNotFoundException | InterruptedException e) {
+				e.printStackTrace();
+				System.err.println("SERVIDOR Hilo " + Thread.currentThread().getName() + " >> Error");
 		}
 	} 
 }

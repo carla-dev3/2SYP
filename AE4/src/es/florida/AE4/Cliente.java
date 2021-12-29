@@ -36,14 +36,24 @@ public class Cliente {
 	
 		ObjectOutputStream pMod = new ObjectOutputStream(socket.getOutputStream());
 		pMod.writeObject(c);
+		System.out.println("CLIENTE >> Enviando al servidor la contraseña: " + contrasenya);
+		
 		
 		System.out.println("CLIENTE >> Preparado canal para recibir encriptacion");
 		InputStream is = socket.getInputStream();
 		InputStreamReader isr = new InputStreamReader(is);
 		BufferedReader bfr = new BufferedReader(isr);
 		
+		Thread.sleep(2000);
 		String resultado = bfr.readLine();
 		System.out.println("CLIENTE >> La contraseña encriptada es: " + resultado);
+		
+		Thread.sleep(2000);
+		System.out.println("CLIENTE >> La opcion que esoges es: ");
+		Scanner opcion = new Scanner(System.in);
+		String contrasenya_opcion = opcion.nextLine();
+		
+		
 		socket.close(); 
 	}
 }
