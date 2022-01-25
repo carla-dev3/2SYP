@@ -11,14 +11,15 @@ public class GestorHTTP implements HttpHandler {
     //Inicialmente ambas temperaturas tendrán el mismo valor, por ejemplo 15º
 
     String temperaturaActual = "15";
-    double temperaturaTermostato = 15;
+    String temperaturaTermostato = "15";
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 
         if ("GET".equals(httpExchange.getRequestMethod())) {
             temperaturaActual = handleGetRequest(httpExchange);
-            handleGETResponse(httpExchange, temperaturaActual);
+            temperaturaTermostato = handleGetRequest(httpExchange);
+            handleGETResponse(httpExchange, 15, 15);
         } else if ("POST".equals(httpExchange.getRequestMethod())) {
             temperaturaActual = handlePostRequest(httpExchange);
             handlePOSTResponse(httpExchange, temperaturaActual);
@@ -27,7 +28,7 @@ public class GestorHTTP implements HttpHandler {
 
     private String handleGetRequest(HttpExchange httpExchange) {
         System.out.println("Recibida URI tipo GET: " + httpExchange.getRequestURI().toString());
-        return httpExchange.getRequestURI().toString().split("\\?")[1].split("=")[1];
+        return httpExchange.getRequestURI().toString().split("\\?")[1];
     }
 
     private String handlePostRequest(HttpExchange httpExchange) {
@@ -48,9 +49,9 @@ public class GestorHTTP implements HttpHandler {
         return sb.toString();
     }
 
-    private void handleGETResponse(HttpExchange httpExchange, String temperaturaActual) throws IOException {
+    private void handleGETResponse(HttpExchange httpExchange, int temp, int termo) throws IOException {
         OutputStream outputStream = httpExchange.getResponseBody();
-        String htmlResponse = "<html><body><h1>Temperatura Actual -> " + temperaturaActual + "</h1></body></html>";
+        String htmlResponse = "<html><body><h1>Temperatura Actual -> " + temp + "</h1></body></html><html><body><h1>Temperatura Termostato -> " + termo + "</h1></body></html>";
         httpExchange.sendResponseHeaders(200, htmlResponse.length());
         outputStream.write(htmlResponse.getBytes());
         System.out.println("Devuelve respuesta HTML: " + htmlResponse);

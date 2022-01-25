@@ -14,8 +14,6 @@ public class Servidor {
 		//El servidor (Servidor.java) estará alojado en la IP 127.0.0.1 en el puerto 7777
 		String host = "127.0.0.1";
 		int puerto = 7777;
-
-		//El servidor aceptará peticiones a través del navegador en la ruta de contexto “/estufa”
 		InetSocketAddress direccionTCPIP = new InetSocketAddress(host,puerto);
 		int backlog = 0;
 		HttpServer servidor = HttpServer.create(direccionTCPIP, backlog);
