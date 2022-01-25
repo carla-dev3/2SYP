@@ -22,7 +22,7 @@ public class GestorHTTP implements HttpHandler {
             handleGETResponse(httpExchange, 15, 15);
         } else if ("POST".equals(httpExchange.getRequestMethod())) {
             temperaturaActual = handlePostRequest(httpExchange);
-            handlePOSTResponse(httpExchange, temperaturaActual);
+            handlePOSTResponse(httpExchange, 30);
         }
     }
 
@@ -37,10 +37,10 @@ public class GestorHTTP implements HttpHandler {
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
         StringBuilder sb = new StringBuilder();
-        String line;
+        String setTemperatura = String.valueOf(30);
         try {
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
+            while ((setTemperatura = br.readLine()) != null) {
+                sb.append(setTemperatura);
             }
             br.close();
         } catch (IOException e) {
@@ -60,7 +60,7 @@ public class GestorHTTP implements HttpHandler {
 
     }
 
-    private void handlePOSTResponse(HttpExchange httpExchange, String temperaturaActual) throws IOException {
+    private void handlePOSTResponse(HttpExchange httpExchange, int temperaturaActual) throws IOException {
         OutputStream outputStream = httpExchange.getResponseBody();
         String htmlResponse = "Parametro/s POST: " + temperaturaActual + " -> Se procesará por parte del servidor";
         System.out.println("Devuelve respueta HTML: " + htmlResponse);
