@@ -37,10 +37,10 @@ public class GestorHTTP implements HttpHandler {
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
         StringBuilder sb = new StringBuilder();
-        String setTemperatura = String.valueOf(30);
+        String line;
         try {
-            while ((setTemperatura = br.readLine()) != null) {
-                sb.append(setTemperatura);
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
             }
             br.close();
         } catch (IOException e) {
