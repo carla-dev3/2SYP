@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class GestorHTTP implements HttpHandler {
 
@@ -68,6 +69,14 @@ public class GestorHTTP implements HttpHandler {
         outputStream.write(htmlResponse.getBytes());
         outputStream.flush();
         outputStream.close();
+    }
 
+    private void regularTemperatura() {
+
+        for (int i = 0; i < ; i++) {
+            /* Este método se encargará de variar (aumentar o
+            disminuir) la temperaturaActual de la estufa en 1 unidad hasta alcanzar la
+            temperaturaTermostato que se haya pasado como parámetro POST  */
+        }
     }
 }
