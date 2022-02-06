@@ -11,19 +11,21 @@ public class GestorHTTP implements HttpHandler {
     //La clase GestorHTTP tendrá dos atributos: temperaturaActual y temperaturaTermostato.
     //Inicialmente ambas temperaturas tendrán el mismo valor, por ejemplo 15º
 
-    String temperaturaActual = "15";
+     String temperaturaActual = "15";
     String temperaturaTermostato = "15";
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
+
+        String requestParamValue = null;
 
         if ("GET".equals(httpExchange.getRequestMethod())) {
             temperaturaActual = handleGetRequest(httpExchange);
             temperaturaTermostato = handleGetRequest(httpExchange);
             handleGETResponse(httpExchange, 15, 15);
         } else if ("POST".equals(httpExchange.getRequestMethod())) {
-            temperaturaActual = handlePostRequest(httpExchange);
-            handlePOSTResponse(httpExchange, 30);
+            requestParamValue = handlePostRequest(httpExchange);
+            handlePOSTResponse(httpExchange,requestParamValue);
         }
     }
 
@@ -61,9 +63,9 @@ public class GestorHTTP implements HttpHandler {
 
     }
 
-    private void handlePOSTResponse(HttpExchange httpExchange, int temperaturaActual) throws IOException {
+    private void handlePOSTResponse(HttpExchange httpExchange, String requestParamValue) throws IOException {
         OutputStream outputStream = httpExchange.getResponseBody();
-        String htmlResponse = "Parametro/s POST: " + temperaturaActual + " -> Se procesará por parte del servidor";
+        String htmlResponse = "Parametro/s POST: " + requestParamValue + " -> Se procesará por parte del servidor";
         System.out.println("Devuelve respueta HTML: " + htmlResponse);
         httpExchange.sendResponseHeaders(200, htmlResponse.length());
         outputStream.write(htmlResponse.getBytes());
@@ -73,10 +75,8 @@ public class GestorHTTP implements HttpHandler {
 
     private void regularTemperatura() {
 
-        for (int i = 0; i < ; i++) {
             /* Este método se encargará de variar (aumentar o
             disminuir) la temperaturaActual de la estufa en 1 unidad hasta alcanzar la
             temperaturaTermostato que se haya pasado como parámetro POST  */
         }
-    }
 }
