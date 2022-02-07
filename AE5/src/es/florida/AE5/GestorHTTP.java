@@ -11,18 +11,19 @@ public class GestorHTTP implements HttpHandler {
     //La clase GestorHTTP tendrá dos atributos: temperaturaActual y temperaturaTermostato.
     //Inicialmente ambas temperaturas tendrán el mismo valor, por ejemplo 15º
 
-     String temperaturaActual = "15";
-    String temperaturaTermostato = "15";
+    int temperaturaActual = 15;
+    int temperaturaTermostato = 15;
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 
+
         String requestParamValue = null;
 
         if ("GET".equals(httpExchange.getRequestMethod())) {
-            temperaturaActual = handleGetRequest(httpExchange);
-            temperaturaTermostato = handleGetRequest(httpExchange);
-            handleGETResponse(httpExchange, 15, 15);
+            temperaturaActual = Integer.parseInt(handleGetRequest(httpExchange));
+            temperaturaTermostato = Integer.parseInt(handleGetRequest(httpExchange));
+          //  handleGETResponse(httpExchange, 15, 15);
         } else if ("POST".equals(httpExchange.getRequestMethod())) {
             requestParamValue = handlePostRequest(httpExchange);
             handlePOSTResponse(httpExchange,requestParamValue);
@@ -52,15 +53,41 @@ public class GestorHTTP implements HttpHandler {
         return sb.toString();
     }
 
-    private void handleGETResponse(HttpExchange httpExchange, int temp, int termo) throws IOException {
+    private void handleGETResponse(HttpExchange httpExchange, String stringUsuario) throws IOException, InterruptedException {
         OutputStream outputStream = httpExchange.getResponseBody();
-        String htmlResponse = "<html><body><h1>Temperatura Actual -> " + temp + "</h1></body></html><html><body><h1>Temperatura Termostato -> " + termo + "</h1></body></html>";
+
+        String htmlResponse = "Parametro's POST: " + stringUsuario;
+        System.out.println("Parametro/s POST: " + stringUsuario);
+
+        String orden = stringUsuario.split("=")[0];
+        String instruccion = stringUsuario.split("=")[1];
+
+        if (orden.equals("setTemperatura")) {
+            System.out.println(stringUsuario + " -> Programando la estufa... ");
+            temperaturaTermostato = Integer.parseInt(stringUsuario.split("=")[1]);
+            regularTemperatura();
+            httpExchange.sendResponseHeaders(200, htmlResponse.length());
+            outputStream.write(htmlResponse.getBytes());
+        } else if (orden.equals("notificarAveria:email_remitente")) {
+            System.out.println(stringUsuario + " -> Sistema de alerta en marcha... ");
+            String email_remitente = instruccion.split(";")[0];
+            String email_remitente_pass = stringUsuario.split("=")[2];
+            Servidor.sistemaDeAlerta(email_remitente, email_remitente_pass);
+
+            httpExchange.sendResponseHeaders(200, htmlResponse.length());
+            outputStream.write(htmlResponse.getBytes());
+        } else {
+            System.out.println("La orden no es correcta");
+        }
+        outputStream.flush();
+        outputStream.close();
+
+        /*String htmlResponse = "<html><body><h1>Temperatura Actual -> " + temp + "</h1></body></html><html><body><h1>Temperatura Termostato -> " + termo + "</h1></body></html>";
         httpExchange.sendResponseHeaders(200, htmlResponse.length());
         outputStream.write(htmlResponse.getBytes());
         System.out.println("Devuelve respuesta HTML: " + htmlResponse);
         outputStream.flush();
-        outputStream.close();
-
+        outputStream.close();*/
     }
 
     private void handlePOSTResponse(HttpExchange httpExchange, String requestParamValue) throws IOException {
@@ -73,10 +100,21 @@ public class GestorHTTP implements HttpHandler {
         outputStream.close();
     }
 
-    private void regularTemperatura() {
+    private void regularTemperatura() throws InterruptedException {
 
-            /* Este método se encargará de variar (aumentar o
-            disminuir) la temperaturaActual de la estufa en 1 unidad hasta alcanzar la
-            temperaturaTermostato que se haya pasado como parámetro POST  */
+        while(temperaturaTermostato != temperaturaActual) {
+            if (temperaturaTermostato > temperaturaActual) {
+                temperaturaActual += 1;
+                Thread.sleep(5000);
+                System.out.println("Temperatura Actual: " + temperaturaActual);
+            } else {
+                temperaturaActual -= 1;
+                Thread.sleep(5000);
+                System.out.println("Temperatura Actual: " + temperaturaActual);
+            }
+        }
+        System.out.println("Has llegado a la temperatura deseada!!");
+        System.out.println("-------------------------------------------------");
+
         }
 }
