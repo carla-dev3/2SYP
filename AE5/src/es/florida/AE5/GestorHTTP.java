@@ -3,6 +3,7 @@ package es.florida.AE5;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import javax.mail.MessagingException;
 import java.io.*;
 import java.util.Scanner;
 
@@ -26,7 +27,13 @@ public class GestorHTTP implements HttpHandler {
           //  handleGETResponse(httpExchange, 15, 15);
         } else if ("POST".equals(httpExchange.getRequestMethod())) {
             requestParamValue = handlePostRequest(httpExchange);
-            handlePOSTResponse(httpExchange,requestParamValue);
+            try {
+                handlePOSTResponse(httpExchange,requestParamValue);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -53,9 +60,18 @@ public class GestorHTTP implements HttpHandler {
         return sb.toString();
     }
 
-    private void handleGETResponse(HttpExchange httpExchange, String stringUsuario) throws IOException, InterruptedException {
+    private void handleGETResponse(HttpExchange httpExchange, int temp, int termo) throws IOException {
         OutputStream outputStream = httpExchange.getResponseBody();
+        String htmlResponse = "<html><body><h1>Temperatura Actual -> " + temp + "</h1></body></html><html><body><h1>Temperatura Termostato -> " + termo + "</h1></body></html>";
+        httpExchange.sendResponseHeaders(200, htmlResponse.length());
+        outputStream.write(htmlResponse.getBytes());
+        System.out.println("Devuelve respuesta HTML: " + htmlResponse);
+        outputStream.flush();
+        outputStream.close();
+    }
 
+    private void handlePOSTResponse(HttpExchange httpExchange, String stringUsuario) throws IOException, InterruptedException, MessagingException {
+        OutputStream outputStream = httpExchange.getResponseBody();
         String htmlResponse = "Parametro's POST: " + stringUsuario;
         System.out.println("Parametro/s POST: " + stringUsuario);
 
@@ -79,23 +95,6 @@ public class GestorHTTP implements HttpHandler {
         } else {
             System.out.println("La orden no es correcta");
         }
-        outputStream.flush();
-        outputStream.close();
-
-        /*String htmlResponse = "<html><body><h1>Temperatura Actual -> " + temp + "</h1></body></html><html><body><h1>Temperatura Termostato -> " + termo + "</h1></body></html>";
-        httpExchange.sendResponseHeaders(200, htmlResponse.length());
-        outputStream.write(htmlResponse.getBytes());
-        System.out.println("Devuelve respuesta HTML: " + htmlResponse);
-        outputStream.flush();
-        outputStream.close();*/
-    }
-
-    private void handlePOSTResponse(HttpExchange httpExchange, String requestParamValue) throws IOException {
-        OutputStream outputStream = httpExchange.getResponseBody();
-        String htmlResponse = "Parametro/s POST: " + requestParamValue + " -> Se procesará por parte del servidor";
-        System.out.println("Devuelve respueta HTML: " + htmlResponse);
-        httpExchange.sendResponseHeaders(200, htmlResponse.length());
-        outputStream.write(htmlResponse.getBytes());
         outputStream.flush();
         outputStream.close();
     }

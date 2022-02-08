@@ -16,21 +16,6 @@ public class Servidor {
 
 	public static void main(String[] args) throws IOException, MessagingException {
 
-		String host_email = "smtp.gmail.com"; //correo host
-		String email_remitente = "pruebas.carlaaparicio@gmail.com";
-		String port_email = "587"; //port 587
-		String[] email_destino = {"pruebas.carlaaparicio@gmail.com","carlaaparicio0905@gmail.com"}; //email destino
-		String email_remitente_pass = "6cen123,E";
-		String mensaje = "Esto es un mensaje de la evaluable de PSP "; //mensaje libre
-		String asunto = "AVERIA"; //asunto: Averia
-		String[] anexo = {"D:/CarlaAparicio/paisaje.jpg", "D:/CarlaAparicio/pdf_pruebasSYP.pdf"}; //foto y pdf anexos
-
-		for(String destinatario : email_destino) {
-			sistemaDeAlerta(mensaje, asunto, email_remitente,  email_remitente_pass,
-					host_email,  port_email,  destinatario, anexo);
-		}
-
-
 		//El servidor (Servidor.java) estará alojado en la IP 127.0.0.1 en el puerto 7777
 		String host = "127.0.0.1";
 		int puerto = 7777;
@@ -49,9 +34,19 @@ public class Servidor {
 		System.out.println("Servidor HTTP arranca en el puerto " + puerto);
 
 
+		String email_remitente = "pruebas.carlaaparicio@gmail.com"; // megustaelfresquito@gmail.com
+		String email_remitente_pass = "6cen123,E";
+		sistemaDeAlerta(email_remitente, email_remitente_pass);
 	}
 
-	private static void sistemaDeAlerta(String mensaje, String asunto, String email_remitente, String email_remitente_pass, String host_email, String port_email, String email_destino, String anexo[]) throws MessagingException {
+	static void sistemaDeAlerta(String email_remitente, String email_remitente_pass) throws MessagingException {
+
+		String host_email = "smtp.gmail.com";
+		String asunto = "AVERIA";
+		String mensaje = "Esto es un mensaje de la evaluable de PSP ";
+		String[] anexo = {"D:/CarlaAparicio/paisaje.jpg", "D:/CarlaAparicio/pdf_pruebasSYP.pdf"};
+		String email_destino = "pruebas.carlaaparicio@gmail.com"; // mantenimientoinvernalia@gmail.com
+
 
 		Properties props = System.getProperties();
 		props.put("mail.smtp.host", host_email);
@@ -59,7 +54,6 @@ public class Servidor {
 		props.put("mail.smtp.clave", email_remitente_pass);
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.port", port_email);
 
 		Session session = Session.getDefaultInstance(props);
 
@@ -81,6 +75,7 @@ public class Servidor {
 			messageBodyPart2.setFileName(foto);
 			multipart.addBodyPart(messageBodyPart2);
 		}
+
 		multipart.addBodyPart(messageBodyPart1);
 		message.setContent(multipart);
 
