@@ -18,13 +18,14 @@ public class GestorHTTP implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 
-
         String requestParamValue = null;
 
         if ("GET".equals(httpExchange.getRequestMethod())) {
-            temperaturaActual = Integer.parseInt(handleGetRequest(httpExchange));
-            temperaturaTermostato = Integer.parseInt(handleGetRequest(httpExchange));
-          //  handleGETResponse(httpExchange, 15, 15);
+           /* temperaturaActual = Integer.parseInt(handleGetRequest(httpExchange));
+            temperaturaTermostato = Integer.parseInt(handleGetRequest(httpExchange));*/
+            requestParamValue = handleGetRequest(httpExchange);
+            handleGETResponse(httpExchange,requestParamValue);
+           // handleGETResponse(httpExchange, 15, 15);
         } else if ("POST".equals(httpExchange.getRequestMethod())) {
             requestParamValue = handlePostRequest(httpExchange);
             try {
@@ -60,12 +61,18 @@ public class GestorHTTP implements HttpHandler {
         return sb.toString();
     }
 
-    private void handleGETResponse(HttpExchange httpExchange, int temp, int termo) throws IOException {
-        OutputStream outputStream = httpExchange.getResponseBody();
+    private void handleGETResponse(HttpExchange httpExchange, String requestParamValue) throws IOException {
+       /* OutputStream outputStream = httpExchange.getResponseBody();
         String htmlResponse = "<html><body><h1>Temperatura Actual -> " + temp + "</h1></body></html><html><body><h1>Temperatura Termostato -> " + termo + "</h1></body></html>";
         httpExchange.sendResponseHeaders(200, htmlResponse.length());
         outputStream.write(htmlResponse.getBytes());
         System.out.println("Devuelve respuesta HTML: " + htmlResponse);
+        outputStream.flush();
+        outputStream.close();*/
+        OutputStream outputStream = httpExchange.getResponseBody();
+        String htmlResponse = "<html><body>"+ requestParamValue+ "</body></html>";
+        httpExchange.sendResponseHeaders(200, htmlResponse.length());
+        outputStream.write(htmlResponse.getBytes());
         outputStream.flush();
         outputStream.close();
     }

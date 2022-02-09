@@ -9,6 +9,7 @@ import javax.mail.internet.*;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.Properties;
+import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -35,7 +36,9 @@ public class Servidor {
 
 
 		String email_remitente = "pruebas.carlaaparicio@gmail.com"; // megustaelfresquito@gmail.com
-		String email_remitente_pass = "6cen123,E";
+		System.out.println("Introduce contraseña: ");
+		Scanner teclado = new Scanner(System.in);
+		String email_remitente_pass = teclado.nextLine();
 		sistemaDeAlerta(email_remitente, email_remitente_pass);
 	}
 
@@ -47,6 +50,11 @@ public class Servidor {
 		String[] anexo = {"D:/CarlaAparicio/paisaje.jpg", "D:/CarlaAparicio/pdf_pruebasSYP.pdf"};
 		String email_destino = "pruebas.carlaaparicio@gmail.com"; // mantenimientoinvernalia@gmail.com
 
+		System.out.println("Envío de correo");
+		System.out.println(" -> Remitente: " + email_remitente);
+		System.out.println(" -> Destinatario: " + email_destino);
+		System.out.println(" -> Asunto: " + asunto);
+		System.out.println(" -> Mensaje: " + mensaje);
 
 		Properties props = System.getProperties();
 		props.put("mail.smtp.host", host_email);
