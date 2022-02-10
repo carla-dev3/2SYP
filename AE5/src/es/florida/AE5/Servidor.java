@@ -33,6 +33,12 @@ public class Servidor {
 		System.out.println("Servidor HTTP arranca en el puerto " + puerto);
 	}
 
+	/**
+	 * Método: sistemaDeAlerta: sistema de alerta que permite enviar automáticamente un email al técnico.
+	 *
+	 * @param email_remitente y email_remitente_pass
+	 * @return
+	 */
 	static void sistemaDeAlerta(String email_remitente, String email_remitente_pass) throws MessagingException {
 
 		String host_email = "smtp.gmail.com";

@@ -94,6 +94,14 @@ public class GestorHTTP implements HttpHandler {
         outputStream.close();
     }
 
+    /**
+     * Método: regularTemperatura: variar (aumentar o
+     * disminuir) la temperaturaActual de la estufa en 1 unidad hasta alcanzar la
+     * temperaturaTermostato.
+     *
+     * @param
+     * @return
+     */
     private void regularTemperatura() throws InterruptedException {
 
         while(temperaturaTermostato != temperaturaActual) {
