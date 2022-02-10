@@ -5,27 +5,20 @@ import com.sun.net.httpserver.HttpHandler;
 
 import javax.mail.MessagingException;
 import java.io.*;
-import java.util.Scanner;
 
 public class GestorHTTP implements HttpHandler {
 
-    //La clase GestorHTTP tendrá dos atributos: temperaturaActual y temperaturaTermostato.
-    //Inicialmente ambas temperaturas tendrán el mismo valor, por ejemplo 15º
-
     int temperaturaActual = 15;
     int temperaturaTermostato = 15;
+    String requestParamValue = null;
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 
-        String requestParamValue = null;
-
         if ("GET".equals(httpExchange.getRequestMethod())) {
-           /* temperaturaActual = Integer.parseInt(handleGetRequest(httpExchange));
-            temperaturaTermostato = Integer.parseInt(handleGetRequest(httpExchange));*/
-            requestParamValue = handleGetRequest(httpExchange);
-            handleGETResponse(httpExchange,requestParamValue);
-           // handleGETResponse(httpExchange, 15, 15);
+            temperaturaActual = Integer.parseInt(handleGetRequest(httpExchange));
+            temperaturaTermostato = Integer.parseInt(handleGetRequest(httpExchange));
+            handleGETResponse(httpExchange, temperaturaActual, temperaturaTermostato);
         } else if ("POST".equals(httpExchange.getRequestMethod())) {
             requestParamValue = handlePostRequest(httpExchange);
             try {
@@ -61,46 +54,41 @@ public class GestorHTTP implements HttpHandler {
         return sb.toString();
     }
 
-    private void handleGETResponse(HttpExchange httpExchange, String requestParamValue) throws IOException {
-       /* OutputStream outputStream = httpExchange.getResponseBody();
-        String htmlResponse = "<html><body><h1>Temperatura Actual -> " + temp + "</h1></body></html><html><body><h1>Temperatura Termostato -> " + termo + "</h1></body></html>";
-        httpExchange.sendResponseHeaders(200, htmlResponse.length());
-        outputStream.write(htmlResponse.getBytes());
-        System.out.println("Devuelve respuesta HTML: " + htmlResponse);
-        outputStream.flush();
-        outputStream.close();*/
+    private void handleGETResponse(HttpExchange httpExchange, int tempActual, int tempTermo) throws IOException {
+        System.out.println("hola");
         OutputStream outputStream = httpExchange.getResponseBody();
-        String htmlResponse = "<html><body>"+ requestParamValue+ "</body></html>";
+        String htmlResponse = "<html><body><h1>Temperatura Actual -> " + tempActual + "</h1></body></html><html><body><h1>Temperatura Termostato -> " + tempTermo + "</h1></body></html>";
         httpExchange.sendResponseHeaders(200, htmlResponse.length());
+        System.out.println("Devuelve respuesta HTML: " + htmlResponse);
         outputStream.write(htmlResponse.getBytes());
         outputStream.flush();
         outputStream.close();
     }
 
-    private void handlePOSTResponse(HttpExchange httpExchange, String stringUsuario) throws IOException, InterruptedException, MessagingException {
+    private void handlePOSTResponse(HttpExchange httpExchange, String user) throws IOException, InterruptedException, MessagingException {
         OutputStream outputStream = httpExchange.getResponseBody();
-        String htmlResponse = "Parametro's POST: " + stringUsuario;
-        System.out.println("Parametro/s POST: " + stringUsuario);
+        String htmlResponse = "Parametro's POST: " + user;
+        System.out.println("Parametro/s POST: " + user);
 
-        String orden = stringUsuario.split("=")[0];
-        String instruccion = stringUsuario.split("=")[1];
+        String orden = user.split("=")[0];
+        String instruccion = user.split("=")[1];
 
         if (orden.equals("setTemperatura")) {
-            System.out.println(stringUsuario + " -> Programando la estufa... ");
-            temperaturaTermostato = Integer.parseInt(stringUsuario.split("=")[1]);
+            System.out.println(user + " Programando la estufa... ");
+            temperaturaTermostato = Integer.parseInt(user.split("=")[1]);
             regularTemperatura();
             httpExchange.sendResponseHeaders(200, htmlResponse.length());
             outputStream.write(htmlResponse.getBytes());
         } else if (orden.equals("notificarAveria:email_remitente")) {
-            System.out.println(stringUsuario + " -> Sistema de alerta en marcha... ");
+            System.out.println(user + " Sistema de alerta en marcha... ");
             String email_remitente = instruccion.split(";")[0];
-            String email_remitente_pass = stringUsuario.split("=")[2];
+            String email_remitente_pass = user.split("=")[2];
             Servidor.sistemaDeAlerta(email_remitente, email_remitente_pass);
 
             httpExchange.sendResponseHeaders(200, htmlResponse.length());
             outputStream.write(htmlResponse.getBytes());
         } else {
-            System.out.println("La orden no es correcta");
+            System.out.println("La orden es erronea");
         }
         outputStream.flush();
         outputStream.close();

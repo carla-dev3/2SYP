@@ -9,15 +9,13 @@ import javax.mail.internet.*;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.Properties;
-import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class Servidor {
 
-	public static void main(String[] args) throws IOException, MessagingException {
+	public static void main(String[] args) throws IOException {
 
-		//El servidor (Servidor.java) estará alojado en la IP 127.0.0.1 en el puerto 7777
 		String host = "127.0.0.1";
 		int puerto = 7777;
 		InetSocketAddress direccionTCPIP = new InetSocketAddress(host,puerto);
@@ -33,13 +31,6 @@ public class Servidor {
 
 		servidor.start();
 		System.out.println("Servidor HTTP arranca en el puerto " + puerto);
-
-
-		String email_remitente = "pruebas.carlaaparicio@gmail.com"; // megustaelfresquito@gmail.com
-		System.out.println("Introduce contraseña: ");
-		Scanner teclado = new Scanner(System.in);
-		String email_remitente_pass = teclado.nextLine();
-		sistemaDeAlerta(email_remitente, email_remitente_pass);
 	}
 
 	static void sistemaDeAlerta(String email_remitente, String email_remitente_pass) throws MessagingException {
@@ -47,8 +38,12 @@ public class Servidor {
 		String host_email = "smtp.gmail.com";
 		String asunto = "AVERIA";
 		String mensaje = "Esto es un mensaje de la evaluable de PSP ";
-		String[] anexo = {"D:/CarlaAparicio/paisaje.jpg", "D:/CarlaAparicio/pdf_pruebasSYP.pdf"};
-		String email_destino = "pruebas.carlaaparicio@gmail.com"; // mantenimientoinvernalia@gmail.com
+		String[] anexo = {".imgs/paisaje.jpg", ".imgs/pdf_pruebasSYP.pdf"};
+		String[] email_destino = {"mantenimientoinvernalia@gmail.com", "megustaelfresquito@gmail.com"};
+
+		/*for(String destinatario : email_destino) {
+			sistemaDeAlerta(email_remitente, email_remitente_pass, destinatario);
+		}*/
 
 		System.out.println("Envío de correo");
 		System.out.println(" -> Remitente: " + email_remitente);
@@ -58,8 +53,7 @@ public class Servidor {
 
 		Properties props = System.getProperties();
 		props.put("mail.smtp.host", host_email);
-		props.put("mail.smtp.user", email_remitente);
-		props.put("mail.smtp.clave", email_remitente_pass);
+
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
 
@@ -68,7 +62,7 @@ public class Servidor {
 		MimeMessage message = new MimeMessage(session);
 
 		message.setFrom(new InternetAddress(email_remitente));
-		message.addRecipients(Message.RecipientType.TO, email_destino);
+		message.addRecipients(Message.RecipientType.TO, String.valueOf(email_destino));
 		message.setSubject(asunto);
 
 		BodyPart messageBodyPart1 = new MimeBodyPart();
@@ -90,6 +84,9 @@ public class Servidor {
 		Transport transport = session.getTransport("smtp");
 		transport.connect(host_email, email_remitente, email_remitente_pass);
 		transport.sendMessage(message, message.getAllRecipients());
+		System.out.println("-------------------------------------------------");
+		System.out.println("CORREO ENVIADO CON ÉXITO");
+		System.out.println("-------------------------------------------------");
 		transport.close();
 	}
 }
